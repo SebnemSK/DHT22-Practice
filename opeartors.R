@@ -6,11 +6,13 @@
 # integer division (no decimal points)
 5 %/% 2
 
+# and opeartor
 T & T
 T & F
 F & T
 F & F
 
+# OR operator
 T | T
 T | F
 F | T
