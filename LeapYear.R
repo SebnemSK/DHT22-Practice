@@ -13,7 +13,6 @@ if (is.na(year)) {
   
   # Calculate leap year
   
-  
   ## Check for centuries first
   if (year %% 100 == 0) {
     # year is a century should be divisible by 400
