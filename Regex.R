@@ -35,12 +35,26 @@ grep("[a-z0-9]+@\\w+", emails, value = T, ignore.case = T)
 grep("[a-z0-9]+@\\w+\\.[a-z]{2,4}$", emails, value = T, ignore.case = T)
 
 
+# Let's extract postal codes from addresses
+adresses <- c("12 main st. a7r 3b2 someplace", "24 side st. unit 5 k2y3n4 otherplace", 
+              "1234greeen street seasidetown", "some ave3k3n56peaks")
 
+grep("\\b[A-Z]\\d[A-Z]\\s?\\d[a-z]\\d", adresses, value = T, ignore.case = T)
+# Get the starting locations of the postal codes
+regexpr("\\b[A-Z]\\d[A-Z]\\s?\\d[a-z]\\d", adresses,  ignore.case = T)
+# results
+# [1] 13 20 -1 -1
+# attr(,"match.length")
+# [1]  7  6 -1 -1
+# attr(,"index.type")
+# [1] "chars"
+# attr(,"useBytes")
+# [1] TRUE
 
-
-
-
-
+#First postal code
+substr(adresses[1], 13, 13+7)
+# Second postal
+substr(adresses[2], 20, 20+6)
 
 
 
