@@ -56,6 +56,10 @@ substr(adresses[1], 13, 13+7)
 # Second postal
 substr(adresses[2], 20, 20+6)
 
+#First postal code
+trimws(substr(adresses[1], 13, 13+7))
+# Second postal
+trimws(substr(adresses[2], 20, 20+6))
 
 
 
