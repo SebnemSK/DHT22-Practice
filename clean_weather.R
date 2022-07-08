@@ -79,20 +79,48 @@ w6 <- w5 %>%
   mutate(across(Max.TemperatureF:CloudCover, as.numeric)) %>%
   mutate(WindDirDegrees=as.numeric(WindDirDegrees))
   
-# Find rows with values greater than 100 for Max.Humidity
+# Summarize the data
+summary(w6)
 
+# Find rows with values greater than 100 for Max.Humidity
+w6 %>% filter(Max.Humidity > 100)
   
 # Fix the error. What is the assumption?
+# Entry error: 1000 instead of 100
+w6 <- w6 %>% 
+  mutate(Max.Humidity = case_when(
+    Max.Humidity > 100 ~ 100,
+    TRUE ~ Max.Humidity))
+  
+#' Just for fun... Create a new column for Humidity
+#' 0-25 is DRY
+#' 26-55 is NORMAL
+#' +56 is HUMID
+
+w_fun <- w6 %>% 
+  mutate(Humidity = case_when(
+    Max.Humidity  < 26 ~ "DRY",
+    Max.Humidity < 56 ~ "NORMAL",
+    TRUE ~ "HUMID")) %>%
+  select(wdate, Max.Humidity, Humidity)
 
   
 # Find rows with values less than 0 for Mean.VisibilityMiles
-
+w6 %>% filter(Mean.VisibilityMiles < 0)
   
 # Fix the error. What is the assumption?
-
+# Entry error. Both max and min are 10
+w6 <- w6 %>% mutate(Mean.VisibilityMiles =
+                case_when(
+                  Mean.VisibilityMiles < 0 ~ 10,
+                  TRUE ~ Mean.VisibilityMiles
+                ))
 
 # Count missing values
-
+sum(is.na(w6))
+# Clean days with missing values
+weather_clean <- w6 %>%
+  filter(!is.na(Max.TemperatureF))
 
 # Look at histogram for  Min.TemperatureF
 
