@@ -123,7 +123,7 @@ weather_clean <- w6 %>%
   filter(!is.na(Max.TemperatureF))
 
 # Look at histogram for  Min.TemperatureF
-
+hist(weather_clean$Min.TemperatureF)
 
 # Compare to histogram for Mean.TemperatureF
-
+hist(weather_clean$Mean.TemperatureF)
