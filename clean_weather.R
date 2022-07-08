@@ -1,42 +1,48 @@
 #' The dataset used in this demo came from this excellent course 
-#' in data cleaning hosted on Datacamp (https://www.datacamp.com/courses/cleaning-data-in-r)
+#' in data cleaning hosted on Datacamp 
+#' (https://www.datacamp.com/courses/cleaning-data-in-r)
 #' Downloaded in May 2021
 
 library("dplyr")
-library('tidyr')
+library("tidyr")
 
 # Load weather.rds
-weather <- 
+weather <- readRDS("weather.rds")
 
 # Verify that weather is a data.frame
-
+class(weather)
 
 # Check the dimensions of the data set
-
+dim(weather)
 
 # View the column names
-
+names(weather)
 
 # View the structure of the data
-
+str(weather)
 
 # Look at the structure using dplyr's glimpse()
-
+glimpse(weather)
 
 # View a summary of the data
+summary(weather)
 
+# Take a closer look at the data by viewing the top 
+# and bottom rows
+head(weather)
+tail(weather)
 
-# Take a closer look at the data by viewing the top and bottom rows
-
-
-
+# Find out the distinct values in measure column
+weather %>%
+  select(measure) %>%
+  unique()
 
 #' This weather dataset suffers from one of the five most common 
 #' symptoms of messy data: column names are values. 
 #' Column names X1-X31 represent days of the month. 
 #' They should be values of a variable called day.
 #' pivot_longer() the columns X1:X31 as day
-w2 <-
+w2 <- pivot_longer(weather, X1:X31, names_to = "day", values_to = "value")
 
 
 #' Another common symptom of messy data: values are variable names. 
