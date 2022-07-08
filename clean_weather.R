@@ -48,28 +48,36 @@ w2 <- pivot_longer(weather, X1:X31, names_to = "day", values_to = "value")
 #' Another common symptom of messy data: values are variable names. 
 #' Values in the measure column should be variables (column names) 
 #' in our dataset. pivot_wider() the measure column
-w3 <- 
+w3 <- pivot_wider(w2,id_cols = year:day,names_from = measure, values_from = value)
 
 # Remove X's from day column
-
+w3$day <- stringr::str_remove(w3$day, "X")
 
 # Unite the year, month, and day columns
-w4 <-
+w4 <- unite(w3, wdate, year, month, day, sep = "-")
 
-# Convert date column to proper date format using lubridates's ymd()
-
+# Convert date column to proper date format using 
+# lubridates's ymd()
+w4$wdate <- lubridate::ymd(w4$wdate)
 
 # Clean up empty rows, if there are any
-w5 <-
+w5 <- w4 %>%
+  filter(!is.na(wdate))
 
-# See what happens if we try to convert PrecipitationIn to numeric. Get rid of T values
+# See what happens if we try to convert 
+# PrecipitationIn to numeric. Get rid of T values
+ 
+as.numeric(w5$PrecipitationIn)
+w5$PrecipitationIn <- stringr::str_replace(w5$PrecipitationIn, "T", "0")
+w5$PrecipitationIn <-as.numeric(w5$PrecipitationIn)
 
-
-# See if there are any non-digit characters in columns MAx.TemperatureF through CloudCover
-
+# See if there are any non-digit characters in columns PrecipitationIn through CloudCover
+grepl("\\D", w5$PrecipitationIn)
 
 # Convert characters to numeric from CloudCover:WindDirDegrees
-w6 <- 
+w6 <- w5 %>%
+  mutate(across(Max.TemperatureF:CloudCover, as.numeric)) %>%
+  mutate(WindDirDegrees=as.numeric(WindDirDegrees))
   
 # Find rows with values greater than 100 for Max.Humidity
 
