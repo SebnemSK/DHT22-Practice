@@ -9,6 +9,7 @@ repeat {
     print("Error")
   }
   else {
+    # If there is no 'break' command, repeat loops are infinite!
     break
   }
 }
