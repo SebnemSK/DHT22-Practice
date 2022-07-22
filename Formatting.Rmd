@@ -91,3 +91,8 @@ x = 'hello, python world!‘
 print(x.split(' '))
 ```
 
+```{r show_query}
+library(dplyr)
+a <- mtcars %>% filter(mpg > 15) %>% select(fuel=mpg, hp) %>% collect()
+show_query(a)
+```
