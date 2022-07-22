@@ -2,7 +2,10 @@
 title: "Formatting Text"
 author: "S.K."
 date: '2022-07-22'
-output: html_document
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -43,6 +46,48 @@ For example the [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rm
 
 I can also publish my cool reports in [RPub](https://www.rpubs.com/)  at *https://www.rpubs.com/* for free
 
-### TITLE 3
+### IRIS
 
-#
+Iris is a pretty flower. The iris dataset has `r nrow(iris)` rows and `r ncol(iris)` columns. 
+The iris below belongs to the `r iris$Species[1]` family.
+
+![Iris image](/Users/apple/Google Drive (skuzulugil@gmail.com)/MSC2011H/Iris.jpg)
+
+
+### Code Chunk
+
+I have a code chunk displaying a dataframe
+
+```{r cute_df, echo=FALSE, paged.print=TRUE}
+knitr::kable(head(iris), digits = 2)
+```
+
+### Some table
+
+What we have done so far...
+
+|Subject|Package|Function|
+|:------|-------:|:-------:|
+|Plotting|ggplot2|ggplot|
+|format tables|knitr|kable|
+|Manipulate data|dplyr|all functions|
+
+
+And it was fun...
+
+
+## Test Different Language
+
+A little bash code to list all R files 
+
+```{bash dir_list}
+ls -lh *.R
+```
+
+And a little python snippet
+
+```{python hello, eval=FALSE, echo=TRUE}
+x = 'hello, python world!‘
+print(x.split(' '))
+```
+
