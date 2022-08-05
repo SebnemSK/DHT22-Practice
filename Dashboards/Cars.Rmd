@@ -1,0 +1,73 @@
+---
+title: "Cars Analysis"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    source_code: embed
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+
+df <- mtcars
+```
+# Page 1
+
+Row {data-height=250}
+-----------------------------------------------------------------------
+
+### Value
+
+```{r}
+flexdashboard::valueBox(nrow(df), 
+         caption = 'Number of cars', 
+         icon = "ion-android-car", 
+         color = "turquoise")
+```
+
+### Cars
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Circle-icons-car.svg/2048px-Circle-icons-car.svg.png)
+
+### Mileage Outlook
+
+```{r}
+flexdashboard::gauge(round(mean(df$mpg)), 
+      min=0, max=60, 
+      symbol = " mpg", 
+      flexdashboard::gaugeSectors(success = c(40,60), warning = c(21,39), danger = c(0,20)))
+```
+
+
+Row {data-height=750}
+-----------------------------------------------------------------------
+
+### Engine power vs Mileage {data-width=700}
+
+```{r}
+library(ggplot2)
+
+ggplot(df, aes(x=hp, y=mpg, col=as.factor(am))) +
+  geom_jitter(width = .5, size=1)
+```
+
+### Analysis {data-width=300}
+
+**My awesome analysis**
+
+I did some very serious stuff. I found out 
+
+this
+
+that
+
+and particularly
+
+*this awesome thing* among others.
+
+
+# Page 2
+
+```{r}
+DT::datatable(df)
+```

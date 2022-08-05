@@ -1,0 +1,60 @@
+---
+title: "Default Chart Stack (Fill)"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+---
+
+Column {data-width=450}
+-------------------------------------
+
+### Valuebox
+
+```{r}
+gpa <- 3.2
+if(gpa > 3.5) {
+  icon <- "fas fa-heart"
+} else {
+  icon <- "fas fa-times"
+}
+
+flexdashboard::valueBox(gpa, 
+         caption = 'Current GPA', 
+         icon = icon, 
+         color = "turquoise")
+```
+    
+### Chart 1
+    
+```{r}
+print(5*2)
+```
+   
+Column {data-width=650, .tabset}
+-------------------------------------
+    
+### Gauge
+
+```{r}
+flexdashboard::gauge(90, 
+      min=0, max=100, 
+      symbol = "Pts", 
+      flexdashboard::gaugeSectors(success = c(80,100), warning = c(51,79), danger = c(0,50)))
+```
+
+
+### Chart 2
+
+Iris data set has many rows:
+
+```{r}
+nrow(iris)
+```
+    
+### Chart 3
+
+Some text
+
+explaining some
+
+very important things
